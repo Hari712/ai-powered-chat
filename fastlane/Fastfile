@@ -29,10 +29,14 @@ platform :ios do
     # Assuming match is used for code signing
     # match(type: "appstore") # or "adhoc" for testing distribution
     
+    # Dynamically find the workspace
+    workspace_path = Dir[File.expand_path("../ios/*.xcworkspace", __dir__)].first
+    scheme_name = File.basename(workspace_path, ".xcworkspace") if workspace_path
+
     # 1. Build the IPA
     gym(
-      scheme: "AIPoweredChat", # Update this with the actual iOS scheme name if different
-      workspace: File.expand_path("../ios/AIPoweredChat.xcworkspace", __dir__),
+      scheme: scheme_name,
+      workspace: workspace_path,
       output_directory: File.expand_path("../build", __dir__),
       export_method: "ad-hoc" # or "app-store" / "enterprise"
     )
@@ -40,7 +44,7 @@ platform :ios do
     # 2. Upload to Firebase
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID_IOS"],
-      ipa_path: File.expand_path("../build/AIPoweredChat.ipa", __dir__)
+      ipa_path: File.expand_path("../build/#{scheme_name}.ipa", __dir__)
     )
   end
 end
