@@ -38,7 +38,12 @@ jobs:
       # Since the android folder is missing, generate it via prebuild.
       # If you commit the android/ios folders later, you can remove this step.
       - name: Run Expo Prebuild
-        run: npx expo prebuild --no-install
+        run: npx expo prebuild --no-install --clean
+
+      - name: Debug Android Folder
+        run: |
+          ls -la android
+          chmod +x android/gradlew
 
       - name: Build and Distribute Android
         env:
