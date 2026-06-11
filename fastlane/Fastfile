@@ -9,13 +9,13 @@ platform :android do
     gradle(
       task: "assemble",
       build_type: "Release",
-      project_dir: "../android"
+      project_dir: File.expand_path("../android", __dir__)
     )
 
     # 2. Upload to Firebase
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID_ANDROID"],
-      apk_path: "../android/app/build/outputs/apk/release/app-release.apk",
+      apk_path: File.expand_path("../android/app/build/outputs/apk/release/app-release.apk", __dir__),
       # Optionally add release notes and testers/groups
       # release_notes: "New build from GitHub Actions",
       # groups: "qa-team"
@@ -32,15 +32,15 @@ platform :ios do
     # 1. Build the IPA
     gym(
       scheme: "aipoweredchat", # Update this with the actual iOS scheme name if different
-      workspace: "../ios/aipoweredchat.xcworkspace",
-      output_directory: "./build",
+      workspace: File.expand_path("../ios/aipoweredchat.xcworkspace", __dir__),
+      output_directory: File.expand_path("../build", __dir__),
       export_method: "ad-hoc" # or "app-store" / "enterprise"
     )
 
     # 2. Upload to Firebase
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID_IOS"],
-      ipa_path: "./build/aipoweredchat.ipa"
+      ipa_path: File.expand_path("../build/aipoweredchat.ipa", __dir__)
     )
   end
 end
