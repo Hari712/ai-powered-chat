@@ -1,0 +1,57 @@
+name: Distribute to Firebase
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-distribute:
+    name: Build and Distribute
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Setup Java (for Android)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      # Since the android folder is missing, generate it via prebuild.
+      # If you commit the android/ios folders later, you can remove this step.
+      - name: Run Expo Prebuild
+        run: npx expo prebuild --no-install
+
+      - name: Build and Distribute Android
+        env:
+          FIREBASE_APP_ID_ANDROID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }} # Needed for Firebase authentication
+        run: bundle exec fastlane android distribute
+
+      - name: Build and Distribute iOS
+        env:
+          FIREBASE_APP_ID_IOS: ${{ secrets.FIREBASE_APP_ID_IOS }}
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          # MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+          # APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}
+          # APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
+          # APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
+        run: bundle exec fastlane ios distribute

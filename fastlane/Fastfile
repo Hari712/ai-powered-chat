@@ -1,0 +1,46 @@
+default_platform(:android)
+
+platform :android do
+  desc "Build Android release APK and upload to Firebase App Distribution"
+  lane :distribute do
+    # You can pass the firebase_app directly or use an environment variable: ENV["FIREBASE_APP_ID_ANDROID"]
+    
+    # 1. Build the release APK
+    gradle(
+      task: "assemble",
+      build_type: "Release",
+      project_dir: "../android"
+    )
+
+    # 2. Upload to Firebase
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID_ANDROID"],
+      apk_path: "../android/app/build/outputs/apk/release/app-release.apk",
+      # Optionally add release notes and testers/groups
+      # release_notes: "New build from GitHub Actions",
+      # groups: "qa-team"
+    )
+  end
+end
+
+platform :ios do
+  desc "Build iOS release IPA and upload to Firebase App Distribution"
+  lane :distribute do
+    # Assuming match is used for code signing
+    # match(type: "appstore") # or "adhoc" for testing distribution
+    
+    # 1. Build the IPA
+    gym(
+      scheme: "aipoweredchat", # Update this with the actual iOS scheme name if different
+      workspace: "../ios/aipoweredchat.xcworkspace",
+      output_directory: "./build",
+      export_method: "ad-hoc" # or "app-store" / "enterprise"
+    )
+
+    # 2. Upload to Firebase
+    firebase_app_distribution(
+      app: ENV["FIREBASE_APP_ID_IOS"],
+      ipa_path: "./build/aipoweredchat.ipa"
+    )
+  end
+end
