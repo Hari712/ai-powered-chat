@@ -1,13 +1,14 @@
 {
   "expo": {
-    "name": "AIChatApp",
-    "slug": "AIChatApp",
+    "name": "AI-Powered Chat",
+    "slug": "ai-powered-chat",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.anonymous.AIChatApp"
     },
     "android": {
       "adaptiveIcon": {
