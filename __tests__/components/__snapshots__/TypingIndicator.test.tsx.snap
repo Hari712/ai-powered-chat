@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TypingIndicator renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flexDirection": "row",
+      "height": 16,
+      "justifyContent": "flex-start",
+      "paddingHorizontal": 4,
+    }
+  }
+>
+  <View
+    collapsable={false}
+    style={
+      {
+        "backgroundColor": "#818cf8",
+        "borderRadius": 3,
+        "height": 6,
+        "marginHorizontal": 3,
+        "transform": [
+          {
+            "translateY": 0,
+          },
+        ],
+        "width": 6,
+      }
+    }
+  />
+  <View
+    collapsable={false}
+    style={
+      {
+        "backgroundColor": "#818cf8",
+        "borderRadius": 3,
+        "height": 6,
+        "marginHorizontal": 3,
+        "transform": [
+          {
+            "translateY": 0,
+          },
+        ],
+        "width": 6,
+      }
+    }
+  />
+  <View
+    collapsable={false}
+    style={
+      {
+        "backgroundColor": "#818cf8",
+        "borderRadius": 3,
+        "height": 6,
+        "marginHorizontal": 3,
+        "transform": [
+          {
+            "translateY": 0,
+          },
+        ],
+        "width": 6,
+      }
+    }
+  />
+</View>
+`;
