@@ -12,7 +12,7 @@
     "react-native-sse": "^1.2.1"
   },
   "devDependencies": {
-    "@react-native/jest-preset": "^0.86.0",
+    "@react-native/jest-preset": "^0.85.0",
     "@testing-library/react-native": "^13.3.3",
     "@types/jest": "^30.0.0",
     "@types/react": "~19.2.2",
