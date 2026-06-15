@@ -27,7 +27,7 @@ platform :ios do
   desc "Build iOS release IPA and upload to Firebase App Distribution"
   lane :distribute do
     # Assuming match is used for code signing
-    # match(type: "appstore") # or "adhoc" for testing distribution
+    match(type: "adhoc") # or "appstore" for testing distribution
     
     # Dynamically find the workspace
     workspace_path = Dir[File.expand_path("../ios/*.xcworkspace", __dir__)].first

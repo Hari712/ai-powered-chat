@@ -54,17 +54,17 @@ jobs:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }} # Needed for Firebase authentication
         run: bundle exec fastlane android distribute
 
-      - name: Install iOS Pods
-        run: |
-          cd ios
-          bundle exec pod install
+      # - name: Install iOS Pods
+      #   run: |
+      #     cd ios
+      #     bundle exec pod install
 
-      - name: Build and Distribute iOS
-        env:
-          FIREBASE_APP_ID_IOS: ${{ secrets.FIREBASE_APP_ID_IOS }}
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          # MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-          # APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}
-          # APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
-          # APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
-        run: bundle exec fastlane ios distribute
+      # - name: Build and Distribute iOS
+      #   env:
+      #     FIREBASE_APP_ID_IOS: ${{ secrets.FIREBASE_APP_ID_IOS }}
+      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      #     MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+      #     APP_STORE_CONNECT_API_KEY_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY_ID }}
+      #     APP_STORE_CONNECT_API_KEY_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ISSUER_ID }}
+      #     APP_STORE_CONNECT_API_KEY_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY_KEY }}
+      #   run: bundle exec fastlane ios distribute
